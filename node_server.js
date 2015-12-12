@@ -56,7 +56,7 @@ function generate_game(players_array, game_uuid){
     Game.Player_2 = players_array[1];
     Game.Id = game_uuid;
     active_games.push(Game);
-    io.emit('new_game', {Game}); //Not sure if the clients will need to be aware of the games. We can remove if not.
+    io.emit('new_game', {game: Game}); //Not sure if the clients will need to be aware of the games. We can remove if not.
 }
 
 function try_to_pair_players(player_1, player_2){
