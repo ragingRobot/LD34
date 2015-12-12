@@ -1,0 +1,16 @@
+<html>
+<head>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+    	var socket = new io();  //connect to socket server.
+    	socket.on("message", function(data){
+    		if(data.message){
+    			document.getElementsByTagName('body')[0].innerHTML = data.message;
+    		}
+    	});
+    </script>
+</head>
+<body>
+
+</body>
+</html>
