@@ -41,7 +41,10 @@ io.on('connection', function(socket){
 
     // -- EXAMPLE --
     var update_throttled = _.throttle(function(data) {
-        io.emit('update', {player:socket.id, action: data.type});
+        // Locks broadcasts down so they're only sent between opposing players. Won't broadcast if user is in lobby.
+        if(socket.current_game !== undefined){
+            io.to(socket.current_game).emit('update', {player:socket.id, action: data.type});
+        }
     }, 400);
 
     socket.on('action', update_throttled);
@@ -66,6 +69,7 @@ function generate_game(players_array, game_uuid){
     console.log("Adding Players to room "+game_uuid);
     for(i in players_array){
         players_array[i].join(game_uuid);
+        players_array[i].current_game = game_uuid;
     }
     active_games.push(game_uuid);
     io.to(game_uuid).emit("message", {message: "Joined Game "+game_uuid});
