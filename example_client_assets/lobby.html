@@ -1,6 +1,7 @@
 <html>
 <head>
     <script src="/socket.io/socket.io.js"></script>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
     <script>
     	var socket = new io();  //connect to socket server.
     	socket.on("message", function(data){
@@ -30,6 +31,11 @@
 			background: #eee;
 			border:1px solid #ccc;
 		}
+        button{
+            width: 40%;
+            height: 100px;
+            display: inline-block;
+        }
 	</style>
 	<button onclick="hit();">Hit</button>
 	<button onclick="block();">Block</button>
