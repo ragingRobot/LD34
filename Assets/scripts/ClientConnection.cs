@@ -1,44 +1,29 @@
 ﻿using UnityEngine;
 using System.Collections;
-using SocketIOClient;
 using System;
-public class ClientConnection : MonoBehaviour {
+using SocketIO;
 
+public class ClientConnection : MonoBehaviour {
+	SocketIOComponent socket;
 	// Use this for initialization
 	void Start () {
-		Client client = new Client("localhost:3000");
+		GameObject go = GameObject.Find("SocketIO");
+		socket = go.GetComponent<SocketIOComponent>();
 
-		client.Opened += SocketOpened;
-		client.Message += SocketMessage;
-		client.SocketConnectionClosed += SocketConnectionClosed;
-		client.Error +=SocketError;
+		socket.On("message", TestBoop);
+		socket.On("open", OnSocketOpen);
 
-		client.Connect();
+
 	}
 
-	private void SocketOpened(object sender, EventArgs e) {
+	public void TestBoop(SocketIOEvent e){
+		Debug.Log(string.Format("[message: {0}]", e.data));
+	}
+
+	public void OnSocketOpen(SocketIOEvent ev){
+		Debug.Log("updated socket id " + socket.sid);
+	}
 		
-	}
-
-	private void SocketError(object sender, EventArgs e) {
-		Debug.Log("ERROR");
-		if ( e!= null) {
-			string msg = ((MessageEventArgs)e).Message.MessageText;
-			Debug.Log(msg);
-		}
-	}
-
-	private void SocketConnectionClosed(object sender, EventArgs e) {
-
-	}
-
-	private void SocketMessage (object sender, MessageEventArgs e) {
-		if ( e!= null && e.Message.Event == "message") {
-			string msg = e.Message.MessageText;
-			Debug.Log(msg);
-		}
-	}
-	
 	// Update is called once per frame
 	void Update () {
 	
