@@ -64,13 +64,7 @@ function generate_game(players_array, game_uuid){
     }
     active_games.push(game_uuid);
     io.to(game_uuid).emit("message", {message: "Joined Game "+game_uuid});
-}
 
-function find_opponent(game, currentUser){
-    if(game.Player_1.id === currentUser.id){
-        return game.Player_2;
-    } 
-    return game.Player_1;
 }
 
 function try_to_pair_players(player_1, player_2){
