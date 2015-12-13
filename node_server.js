@@ -22,6 +22,7 @@ io.on('connection', function(socket){
     players.push(socket);
 
     io.sockets.connected[socket.id].emit("message", {message:"Connected! Waiting to pair with other player.."});
+    io.sockets.connected[socket.id].emit("connection", {message:socket.id});
 
     //try to pair players for a game, or add them to the lobby
     if(lobby_players.length === 1){
