@@ -2,6 +2,7 @@
 using System.Collections;
 using System;
 using SocketIO;
+using System.Collections.Generic;
 
 public class ClientConnection : MonoBehaviour {
 	SocketIOComponent socket;
@@ -52,6 +53,16 @@ public class ClientConnection : MonoBehaviour {
 		
 	// Update is called once per frame
 	void Update () {
-	
+		if (Input.GetKeyDown("space")){
+			Dictionary<string, string> data = new Dictionary<string, string>();
+			data["type"] = "hit";
+			socket.Emit("action", new JSONObject(data));
+			//Hit();
+		} else if (Input.GetKeyDown("left shift") || Input.GetKeyDown("right shift")){
+			Dictionary<string, string> data = new Dictionary<string, string>();
+			data["type"] = "block";
+			socket.Emit("action", new JSONObject(data));
+			//Block();
+		}
 	}
 }

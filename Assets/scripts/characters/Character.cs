@@ -10,11 +10,12 @@ public class Character : MonoBehaviour {
 	
 	// Update is called once per frame
 	public virtual void Update () {
+		/*
 		if (Input.GetKeyDown("space")){
 			Hit();
 		} else if (Input.GetKeyDown("left shift") || Input.GetKeyDown("right shift")){
 			Block();
-		}
+		}*/
 	}
 
 	public virtual void Hit(){
