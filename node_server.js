@@ -10,6 +10,8 @@ var players = [];           // ALL PLAYERS
 var lobby_players = [];     // PLAYERS WAITING FOR GAME
 var active_games = [];      // ACTIVE GAMES
 
+io.attach(port);
+
 app.get('/', function(req, res){
     res.sendfile('example_client_assets/lobby.html');
 });
@@ -44,10 +46,11 @@ io.on('connection', function(socket){
     // -- /EXAMPLE -- 
 
 });
-
+/*
+//using io.attach(port); instead. that works for some reason
 http.listen(port, function(){
     console.log('listening on *:'+ port);
-});
+});*/
 
 //HELPER METHODS
 function remove_from(array, item){

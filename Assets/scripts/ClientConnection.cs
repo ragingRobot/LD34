@@ -9,14 +9,20 @@ public class ClientConnection : MonoBehaviour {
 	void Start () {
 		GameObject go = GameObject.Find("SocketIO");
 		socket = go.GetComponent<SocketIOComponent>();
-
 		socket.On("message", TestBoop);
-		socket.On("open", OnSocketOpen);
+		socket.On("connection", OnSocketOpen);
+		socket.Connect();
+
+		socket.On("message", (SocketIOEvent e) => {
+			Debug.Log(string.Format("[name: {0}, data: {1}]", e.name, e.data));
+		});
+		Debug.Log("client contection start");
 
 
 	}
 
 	public void TestBoop(SocketIOEvent e){
+		Debug.Log("Message from server:");
 		Debug.Log(string.Format("[message: {0}]", e.data));
 	}
 
