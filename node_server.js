@@ -10,7 +10,7 @@ var players = [];           // ALL PLAYERS
 var lobby_players = [];     // PLAYERS WAITING FOR GAME
 var active_games = [];      // ACTIVE GAMES
 
-io.attach(port);
+//io.attach(port);
 
 app.get('/', function(req, res){
     res.sendfile('example_client_assets/lobby.html');
@@ -20,6 +20,8 @@ io.on('connection', function(socket){
     console.log('User Connected! UUID: "' + socket.id + '"');
 
     players.push(socket);
+
+    io.sockets.connected[socket.id].emit("message", {message:"Connected! Waiting to pair with other player.."});
 
     //try to pair players for a game, or add them to the lobby
     if(lobby_players.length === 1){
@@ -39,18 +41,18 @@ io.on('connection', function(socket){
 
     // -- EXAMPLE --
     var update_throttled = _.throttle(function(data) {
-        io.emit('update', {player:socket.id});
-    }, 100);
+        io.emit('update', {player:socket.id, action: data.type});
+    }, 400);
 
-    socket.on('button_press', update_throttled);
+    socket.on('action', update_throttled);
     // -- /EXAMPLE -- 
 
 });
-/*
+
 //using io.attach(port); instead. that works for some reason
 http.listen(port, function(){
     console.log('listening on *:'+ port);
-});*/
+});
 
 //HELPER METHODS
 function remove_from(array, item){

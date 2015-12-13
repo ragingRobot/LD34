@@ -5,12 +5,34 @@
     	var socket = new io();  //connect to socket server.
     	socket.on("message", function(data){
     		if(data.message){
-    			document.getElementsByTagName('body')[0].innerHTML = data.message;
+    			document.getElementById('log').innerHTML += (data.message + "<br>");
     		}
     	});
+
+    	socket.on("update", function(data){
+    		document.getElementById('log').innerHTML += (data.player + " did action " + data.action + "<br>");
+    	});
+
+    	function hit(){
+    		socket.emit("action", {type: "hit"});
+    	}
+
+    	function block(){
+    		socket.emit("action", {type: "block"});
+    	}
+
     </script>
 </head>
 <body>
-
+	<style type="text/css">
+		#log{
+			margin-top:10px;
+			background: #eee;
+			border:1px solid #ccc;
+		}
+	</style>
+	<button onclick="hit();">Hit</button>
+	<button onclick="block();">Block</button>
+	<div id="log"></div>
 </body>
 </html>
