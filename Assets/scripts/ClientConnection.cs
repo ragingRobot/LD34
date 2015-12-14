@@ -18,7 +18,7 @@ public class ClientConnection : MonoBehaviour {
 		socket = go.GetComponent<SocketIOComponent>();
 
 		if (Application.platform == RuntimePlatform.Android){
-			socket.url = "ws://192.168.1.7:3000/socket.io/?EIO=4&transport=websocket";
+			//socket.url = "ws://192.168.1.7:3000/socket.io/?EIO=4&transport=websocket";
 		}
 		socket.On("message", Message);
 		socket.On("update", UpdateFromServer);
