@@ -4,7 +4,7 @@ var app = express();
 var _ = require("underscore");
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
-var port = 3000;
+var port = process.env.PORT || 3000;
 
 var players = [];           // ALL PLAYERS
 var lobby_players = [];     // PLAYERS WAITING FOR GAME
