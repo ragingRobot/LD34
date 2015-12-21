@@ -418,7 +418,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11400000, guid: b30cc084d923f0645b55bba668610d48, type: 2}
       propertyPath: url
-      value: ws://peaceful-peak-1481.herokuapp.com/socket.io/?EIO=4&transport=websocket
+      value: ws://localhost:3000/socket.io/?EIO=4&transport=websocket
       objectReference: {fileID: 0}
     - target: {fileID: 11400000, guid: b30cc084d923f0645b55bba668610d48, type: 2}
       propertyPath: autoConnect
